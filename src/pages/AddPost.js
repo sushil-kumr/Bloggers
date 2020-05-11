@@ -4,21 +4,25 @@ import Layout from '../components/Layout'
 
 import { Button } from 'bootstrap-4-react';
 
+import {ToastContainer, toast } from "react-toastify";
+
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
+
+import axios from 'axios'
+
+import {URL} from '../data/Constant'
 
 export default class AddPost extends Component {
 
     constructor(props){
     super(props)
     this.state={
-      error:"",
-      success:"",
       updates:[],
       headline :"",
-      desc: "",
+      shortDescription: "",
       link: "",
-      text:""
+      description:""
     }
     this.handleChange = this.handleChange.bind(this);
   }
@@ -27,40 +31,46 @@ export default class AddPost extends Component {
     this.setState({[e.target.name]: e.target.value});
   }
 
-  handleSubmit=(e) =>{
+  handleSubmit= async (e) =>{
     e.preventDefault();
-    if(this.state.headline===""){
-      this.setState({error:"Fill the Title/Headline"})
-    }else if(this.state.desc===""){
-      this.setState({error:"Fill the Short Description"})
-    }
-    else if(this.state.text==="" || this.state.text==="<p><br></p>"){
-      this.setState({error:"Fill the Full Description"})
-    }
-    else{
-  //   const requestOptions = {
-  //     method: 'POST',
-  //     headers: { 'Content-Type': 'application/json' },
-  //     body: JSON.stringify({headline : this.state.headline,
-  //                           link: this.state.link,
-  //                           body: this.state.desc
-  //                         })
-  // };
-  // fetch('', requestOptions)
-  //     .then(response => response.json())
-  //     .then(data => {
-  //       if(data.success)
-  //           this.setState({success:data.message})
-  //       else
-  //         this.setState({error:data.message})
-  // })
-}
+    // if(this.state.headline===""){
+    //   toast("Fill the Title/Headline.", { type: "error" });
+    // }else if(this.state.shortDescription===""){
+    //   toast("Fill the Short Description.", { type: "error" });
+    // }
+    // else if(this.state.description==="" || this.state.description==="<p><br></p>"){
+    //   toast("Fill the Full Description.", { type: "error" });
+    // }
+    // else{
+      try {
+      await axios({
+            method: 'post',
+            url: `${URL}/article/add`,
+            data: {
+              title: this.state.headline,
+              videoLink: this.state.videoLink,
+              shortDescription: this.state.shortDescription,
+              description: this.state.description,
+            }
+          });
+          toast("Article Added!", { type: "success" });
+          this.handleclear();
+        }
+        catch(error) {
+          const errors = error.response.data.errors;
+          errors.forEach(element => {
+            toast(element.msg, { type: "error" });
+          });
+          //console.log();
+        };
+// }
 }
 
   handleclear=()=>{
     this.setState({
       headline :"",
-      text: "",
+      description: "",
+      shortDescription:"",
       link: "",
       id:"",
       error:"",
@@ -73,15 +83,15 @@ export default class AddPost extends Component {
   }
 
   textChange = (e) =>{
-    this.setState({text:e})
+    this.setState({description:e})
     console.log(e);
   }
 
     render() {
-        const data={title:"Hello",desc:"This is whole website",link:""}
-        
+
         return (
             <Layout>
+            <ToastContainer/>
                 <div className="container">
 
         <div className="col-lg-8">
@@ -93,7 +103,7 @@ export default class AddPost extends Component {
                 <div className="form-group row">
                 <label className="col-form-label col-sm-4" htmlFor="">Headline</label>
                 <div className="col-sm-8">
-                    <input className="form-control" placeholder="This will be the Main Headline of the Post" name="headline" type="text" value={this.state.headline} onChange={(e)=> (this.handleChange(e))}/>
+                    <input className="form-control" placeholder="Headline/Title" name="headline" type="text" value={this.state.headline} onChange={(e)=> (this.handleChange(e))}/>
                 </div>
                 </div>
 
@@ -107,23 +117,19 @@ export default class AddPost extends Component {
                 <div className="form-group row">
                 <label className="col-form-label col-sm-4" htmlFor="">Short Description</label>
                 <div className="col-sm-8">
-                    <input className="form-control" placeholder="Short Description (1-2 Lines)" type="text" name="desc" value={this.state.desc} onChange={(e)=> this.handleChange(e)}/>
+                    <input className="form-control" placeholder="Short Description (2-3 Lines)" type="text" name="shortDescription" value={this.state.shortDescription} onChange={(e)=> this.handleChange(e)}/>
                 </div>
                 </div>
 
-                <div className="form-group row" style={{height:"12rem"}}>
+                <div className="form-group row" >
                     <label className="col-sm-4 col-form-label">Full Content/Description</label>
-                    <div className="col-sm-8" style={{height:"12rem"}}>
-                    <ReactQuill style={{height:"7rem"}} value={this.state.text} onChange={this.textChange} />
+                    <div className="col-sm-8">
+                    <ReactQuill  value={this.state.description} onChange={this.textChange} />
                     </div>
-                </div> 
-
-                <div className="alert alert-danger" style={{display:(this.state.error===""?"none":"inline-block")}} id="error" onClick={this.onHandleAlert}>{this.state.error}</div>
-                <div className="alert alert-success" style={{display:(this.state.success===""?"none":"inline-block")}} id="success" onClick={this.onHandleAlert}>{this.state.success}</div>
-            
+                </div> <br/>
         
                 <div className="form-buttons-w">
-                    <Button primary style={{marginRight:"2rem"}} onClick={this.handleSubmit}>Submit</Button>
+                    <Button primary style={{marginRight:"1rem"}} onClick={this.handleSubmit}>Submit</Button>
                     <Button secondary onClick={this.handleclear}>Clear</Button>
                 </div>
             </div>

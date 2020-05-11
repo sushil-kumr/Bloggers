@@ -41,11 +41,11 @@ export default function Header() {
         classNames="NavAnimation"
         unmountOnExit>
         <nav className="Nav">
-          <Link to="/post">Add Post</Link>
           <Link to="/">Home</Link>
+          <Link to="/post">Add Post</Link>
+          <Link to="/payment">Payment</Link>
         </nav>
       </CSSTransition>
-      {/* <div onClick={toggleNav} className="fa fa-bars"></div> */}
       <button onClick={toggleNav} className="MenuIcon"> <div className="fa fa-bars"/>
       </button>
     </header>
