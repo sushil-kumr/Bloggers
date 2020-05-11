@@ -58,7 +58,7 @@ export default class ViewPost extends Component {
                         <ReactPlayer className="react-player" width="100%" height="100%" url={this.state.data.videoLink} controls />
                         </div>)}
                         <article>
-                        <div className="article__title text-center" style={{marginTop:"2rem"}}><h1 className="h2">{this.state.data.title}</h1></div>
+                        <div className="article__title text-center" style={{marginTop:"2rem"}}><h2 className="h2">{this.state.data.title}</h2></div>
                         <div className="article__body" style={{marginTop:"2rem"}} dangerouslySetInnerHTML={{__html: this.state.data.description}}>   
                         </div>
                         </article>

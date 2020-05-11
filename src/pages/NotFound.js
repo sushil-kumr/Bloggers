@@ -9,7 +9,7 @@ import {Card,Button} from 'bootstrap-4-react'
 export default function NotFound() {
     return (
         <Layout>
-        <div className="card-center" style={{textAlign:"center",marginTop:"12rem"}}>
+        <div className="card-center" style={{textAlign:"center",marginTop:"10rem"}}>
             <Card style={{ width: '18rem' ,justifyContent:"center"}}>
                 <Card.Body >
                 <h2>404</h2>

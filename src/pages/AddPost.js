@@ -21,7 +21,7 @@ export default class AddPost extends Component {
       updates:[],
       headline :"",
       shortDescription: "",
-      link: "",
+      videoLink: "",
       description:""
     }
     this.handleChange = this.handleChange.bind(this);
@@ -33,15 +33,10 @@ export default class AddPost extends Component {
 
   handleSubmit= async (e) =>{
     e.preventDefault();
-    // if(this.state.headline===""){
-    //   toast("Fill the Title/Headline.", { type: "error" });
-    // }else if(this.state.shortDescription===""){
-    //   toast("Fill the Short Description.", { type: "error" });
-    // }
-    // else if(this.state.description==="" || this.state.description==="<p><br></p>"){
-    //   toast("Fill the Full Description.", { type: "error" });
-    // }
-    // else{
+     if(this.state.description==="<p><br></p>"){
+      toast("Full Description is required.", { type: "error" });
+    }
+    else{
       try {
       await axios({
             method: 'post',
@@ -61,9 +56,8 @@ export default class AddPost extends Component {
           errors.forEach(element => {
             toast(element.msg, { type: "error" });
           });
-          //console.log();
         };
-// }
+}
 }
 
   handleclear=()=>{
@@ -71,8 +65,7 @@ export default class AddPost extends Component {
       headline :"",
       description: "",
       shortDescription:"",
-      link: "",
-      id:"",
+      videoLink: "",
       error:"",
       success:""
     })
@@ -110,7 +103,7 @@ export default class AddPost extends Component {
                 <div className="form-group row">
                 <label className="col-form-label col-sm-4" htmlFor="">Video Link</label>
                 <div className="col-sm-8">
-                    <input className="form-control" placeholder="Post Video Link (Optional)" type="text" name="link" value={this.state.link} onChange={(e)=> this.handleChange(e)}/>
+                    <input className="form-control" placeholder="Post Video Link (Optional)" type="text" name="videoLink" value={this.state.videoLink} onChange={(e)=> this.handleChange(e)}/>
                 </div>
                 </div>
 
