@@ -50,7 +50,7 @@
   width: 100%;
 
   display: grid;
-  grid-template-columns: 4fr 2fr;
+  grid-template-columns: 2fr 2fr;
   grid-template-areas: "logo nav";
 
   /* Cosmetics */
@@ -72,7 +72,7 @@
 .Nav {
   display: grid;
   grid-area: nav;
-  grid-template-columns: repeat(3, auto);
+  grid-template-columns: repeat(4, auto);
   align-items: center;
   justify-items: center;
 }

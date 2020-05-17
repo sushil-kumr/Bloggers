@@ -44,6 +44,7 @@ export default function Header() {
           <Link to="/">Home</Link>
           <Link to="/post">Add Post</Link>
           <Link to="/payment">Payment</Link>
+          <Link to="/new_payment">New Payment</Link>
         </nav>
       </CSSTransition>
       <button onClick={toggleNav} className="MenuIcon"> <div className="fa fa-bars"/>

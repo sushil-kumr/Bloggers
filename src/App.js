@@ -5,6 +5,7 @@ import {BrowserRouter as Router,Route,Switch} from 'react-router-dom'
 import React, { Component } from 'react'
 import AddPost from './pages/AddPost';
 import Payment from './pages/Payment';
+import NewPayment from './pages/NewPayment';
 import Home from './pages/Home';
 import ViewPost from './pages/ViewPost';
 import NotFound from './pages/NotFound';
@@ -17,6 +18,7 @@ render() {
     <Router>
        <Switch>
             <Route path="/payment" exact component={Payment}/>
+            <Route path="/new_payment" exact component={NewPayment}/>
             <Route path="/post" exact  component={AddPost}/>
             <Route path="/:id"  component={ViewPost} />
             <Route path="/"  exact component={Home}  />

@@ -13,3 +13,5 @@ export default function Constant() {
 export const URL = "https://bloogers-node.herokuapp.com/api"
 
 export const KEY = "pk_test_vvc0TFugJPptSp6tzuHr4Cr100zt85c8ql";
+
+export const clientId = "ca_HGRK34SffPPNhW6TzvP7HPVdZpLDRgL1";

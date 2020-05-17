@@ -31,12 +31,7 @@ export default class Home extends Component {
         this.setState({data:response.data.data});
         }
         catch(error) {
-            //const errors = error.response.data.errors;
-            
             this.setState({dataFlag:false});
-            // errors.forEach(element => {
-            //   toast(element.msg, { type: "error" });
-            // });
         }
 
     }
